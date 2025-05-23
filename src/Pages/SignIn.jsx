@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import { motion } from "framer-motion";
 import { FiKey, FiUser, FiEye, FiEyeOff, FiShield } from "react-icons/fi";
 import adminIllustration from "../assets/admin-security.svg";
@@ -9,22 +10,52 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+    const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setError("");
-    
-    // Simulate authentication
-    setTimeout(() => {
-      if (username === "superadmin" && password === "securepassword") {
-        console.log("Login successful");
-      } else {
-        setError("Invalid credentials. Please try again.");
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+  setIsLoading(true);
+  setError("");
+
+  try {
+    const response = await fetch(
+      "https://funeral-donation-backend-production.up.railway.app/super_admins/login",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          super_admin: {
+            email: username, // Assuming `username` is the email
+            password: password,
+            password_confirmation: password,
+          },
+        }),
       }
-      setIsLoading(false);
-    }, 1500);
-  };
+    );
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Invalid credentials. Please try again.");
+    }
+
+    const FuneralToken = response.headers.get("Authorization");
+
+    if (!FuneralToken) {
+      throw new Error("No authentication token received.");
+    }
+
+    localStorage.setItem("FuneralToken", FuneralToken);
+
+    navigate("/dashboard");
+
+  } catch (err) {
+    setError(err.message);
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-900 p-4">

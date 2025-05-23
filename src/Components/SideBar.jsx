@@ -1,9 +1,17 @@
-import React, { useState } from 'react';
-import { FiHome, FiPlusCircle, FiUsers, FiDollarSign, FiSettings, FiLogOut } from 'react-icons/fi';
-import { Link } from 'react-router';
+import React from 'react';
+import {
+  FiHome,
+  FiPlusCircle,
+  FiUsers,
+  FiDollarSign,
+  FiLogOut
+} from 'react-icons/fi';
+import { Link, useLocation } from 'react-router-dom';
 
 const SideBar = () => {
-    const [activeTab, setActiveTab] = useState('dashboard');
+  const location = useLocation();
+
+  const isActive = (path) => location.pathname === path;
 
   return (
     <div className="flex h-screen bg-gray-100">
@@ -13,39 +21,51 @@ const SideBar = () => {
           <p className="text-sm text-gray-400">Super Admin Portal</p>
         </div>
         <nav className="mt-4">
-          <Link to={"/dashboard"}
-            onClick={() => setActiveTab('dashboard')}
-            className={`flex items-center w-full p-3 ${activeTab === 'dashboard' ? 'bg-blue-600' : 'hover:bg-gray-700'}`}
+          <Link
+            to="/dashboard"
+            className={`flex items-center w-full p-3 ${
+              isActive('/dashboard') ? 'bg-blue-600' : 'hover:bg-gray-700'
+            }`}
           >
             <FiHome className="mr-2" /> Dashboard
           </Link>
-          <Link to={"/create-funeral"}
-            onClick={() => setActiveTab('create')}
-            className={`flex items-center w-full p-3 ${activeTab === 'create' ? 'bg-blue-600' : 'hover:bg-gray-700'}`}
+          <Link
+            to="/create-funeral"
+            className={`flex items-center w-full p-3 ${
+              isActive('/create-funeral') ? 'bg-blue-600' : 'hover:bg-gray-700'
+            }`}
           >
             <FiPlusCircle className="mr-2" /> Create Funeral
           </Link>
-          <Link to={"/manage-funerals"}
-            onClick={() => setActiveTab('manage')}
-            className={`flex items-center w-full p-3 ${activeTab === 'manage' ? 'bg-blue-600' : 'hover:bg-gray-700'}`}
+          <Link
+            to="/manage-funerals"
+            className={`flex items-center w-full p-3 ${
+              isActive('/manage-funerals') ? 'bg-blue-600' : 'hover:bg-gray-700'
+            }`}
           >
             <FiUsers className="mr-2" /> Manage Funerals
           </Link>
-          <Link to={"/donations"}
-            onClick={() => setActiveTab('donations')}
-            className={`flex items-center w-full p-3 ${activeTab === 'donations' ? 'bg-blue-600' : 'hover:bg-gray-700'}`}
+          <Link
+            to="/donations"
+            className={`flex items-center w-full p-3 ${
+              isActive('/donations') ? 'bg-blue-600' : 'hover:bg-gray-700'
+            }`}
           >
             <FiDollarSign className="mr-2" /> Donations
           </Link>
           <button
             className="flex items-center w-full p-3 hover:bg-gray-700 mt-4"
+            onClick={() => {
+              localStorage.removeItem('FuneralToken');
+              window.location.href = '/';
+            }}
           >
             <FiLogOut className="mr-2" /> Logout
           </button>
         </nav>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default SideBar
+export default SideBar;
