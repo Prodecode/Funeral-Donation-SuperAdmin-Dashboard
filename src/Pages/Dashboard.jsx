@@ -28,7 +28,7 @@ const Dashboard = () => {
             },
           }
         );
-        console.log(res.data);
+        // console.log(res.data);
         setAdmins(res.data);
       } catch (err) {
         if (err.response && err.response.status === 401) {
