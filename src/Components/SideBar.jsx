@@ -3,9 +3,9 @@ import {
   FiHome,
   FiPlusCircle,
   FiUsers,
-  FiDollarSign,
   FiLogOut
 } from 'react-icons/fi';
+import { MdAdminPanelSettings } from "react-icons/md";
 import { Link, useLocation } from 'react-router-dom';
 
 const SideBar = () => {
@@ -30,14 +30,6 @@ const SideBar = () => {
             <FiHome className="mr-2" /> Dashboard
           </Link>
           <Link
-            to="/create-funeral"
-            className={`flex items-center w-full p-3 ${
-              isActive('/create-funeral') ? 'bg-blue-600' : 'hover:bg-gray-700'
-            }`}
-          >
-            <FiPlusCircle className="mr-2" /> Create Funeral
-          </Link>
-          <Link
             to="/manage-funerals"
             className={`flex items-center w-full p-3 ${
               isActive('/manage-funerals') ? 'bg-blue-600' : 'hover:bg-gray-700'
@@ -46,13 +38,14 @@ const SideBar = () => {
             <FiUsers className="mr-2" /> Manage Funerals
           </Link>
           <Link
-            to="/donations"
+            to="/manage-admins"
             className={`flex items-center w-full p-3 ${
-              isActive('/donations') ? 'bg-blue-600' : 'hover:bg-gray-700'
+              isActive('/manage-admins') ? 'bg-blue-600' : 'hover:bg-gray-700'
             }`}
           >
-            <FiDollarSign className="mr-2" /> Donations
+            <MdAdminPanelSettings className="mr-2" /> Manage Administrators
           </Link>
+          
           <button
             className="flex items-center w-full p-3 hover:bg-gray-700 mt-4"
             onClick={() => {
