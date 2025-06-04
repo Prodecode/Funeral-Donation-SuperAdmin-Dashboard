@@ -7,6 +7,7 @@ import DonationsView from "./Pages/DonationsView";
 import ManageAdmins from "./Pages/ManageAdmins";
 import EditFuneral from "./Pages/EditFuneral";
 import CreateFuneralAdmin from "./Pages/CreateFuneralAdmin";
+import ViewFuneralDetail from "./Pages/ViewFuneralDetail";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/manage-admins" element={<ManageAdmins />} />
         <Route path="/donations" element={<DonationsView />} />
         <Route path="/edit-funeral/:id" element={<EditFuneral />} />
+        <Route path="/view-funeral/:id" element={<ViewFuneralDetail />} />
       </Routes>
     </Router>
   );

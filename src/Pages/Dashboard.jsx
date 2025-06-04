@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import {
-  FiUsers,
-  FiDollarSign,
-  FiSettings,
-} from "react-icons/fi";
+import { FiUsers, FiDollarSign, FiSettings } from "react-icons/fi";
 import StatCard from "../Components/StatCard";
 import FuneralItem from "../Components/FuneralItem";
 import SideBar from "../Components/SideBar";
 
 const Dashboard = () => {
   const [admins, setAdmins] = useState([]);
+  const [funerals, setFunerals] = useState([]);
+  const [funeralCount, setFuneralCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -42,7 +40,34 @@ const Dashboard = () => {
       }
     };
 
+    const fetchFunerals = async () => {
+      try {
+        const token = localStorage.getItem("FuneralToken");
+        const res = await axios.get(
+          "https://funeral-donation-backend-production.up.railway.app/api/v1/funerals",
+          {
+            headers: {
+              Authorization: `${token}`,
+              Accept: "*/*",
+            },
+          }
+        );
+        setFunerals(res.data);
+        setFuneralCount(res.data.length);
+      } catch (err) {
+        if (err.response && err.response.status === 401) {
+          localStorage.removeItem("FuneralToken"); // optional: clear token
+          navigate("/"); // adjust path to your actual sign-in route
+        } else {
+          console.error("Failed to fetch admins", err);
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchAdmins();
+    fetchFunerals();
   }, [navigate]);
 
   return (
@@ -55,31 +80,56 @@ const Dashboard = () => {
         <div className="p-6">
           <h2 className="text-2xl font-bold mb-6">Dashboard Overview</h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-            <StatCard title="Active Funerals" value="12" icon={<FiUsers />} />
-            <StatCard title="Total Donations" value="₵8,450" icon={<FiDollarSign />} />
-            <StatCard title="Recent Activity" value="5 New" icon={<FiSettings />} />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <StatCard
+              title="Active Funerals"
+              value={funeralCount}
+              icon={<FiUsers />}
+            />
+            <StatCard
+              title="Total Donations"
+              value="₵8,450"
+              icon={<FiDollarSign />}
+            />
           </div>
 
           <div className="bg-white mb-8 p-4 rounded-lg shadow">
             <h3 className="font-bold mb-4">Recent Funerals</h3>
             <div className="space-y-4">
-              <FuneralItem name="John Doe" date="May 15, 2023" donations="₵1,200" />
-              <FuneralItem name="Jane Smith" date="May 10, 2023" donations="₵950" />
-              <FuneralItem name="Robert Johnson" date="May 5, 2023" donations="₵1,500" />
+              {loading ? (
+                <div className="px-6 py-4 text-gray-500">Loading...</div>
+              ) : funerals.length === 0 ? (
+                <div className="px-6 py-4 text-gray-500">
+                  No Funerals found.
+                </div>
+              ) : (
+                funerals.map((admin) => (
+                  <div key={admin.id}>
+                    <FuneralItem
+                      name={admin.deceased_name}
+                      date={admin.date}
+                      donations={admin.location}
+                    />
+                  </div>
+                ))
+              )}
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <div className="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100">
               <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
-                <h3 className="font-medium text-gray-800">Funeral Administrators</h3>
+                <h3 className="font-medium text-gray-800">
+                  Funeral Administrators
+                </h3>
               </div>
               <div className="divide-y divide-gray-200">
                 {loading ? (
                   <div className="px-6 py-4 text-gray-500">Loading...</div>
                 ) : admins.length === 0 ? (
-                  <div className="px-6 py-4 text-gray-500">No administrators found.</div>
+                  <div className="px-6 py-4 text-gray-500">
+                    No administrators found.
+                  </div>
                 ) : (
                   admins.map((admin) => (
                     <div key={admin.id} className="px-6 py-4 hover:bg-gray-50">
@@ -99,7 +149,6 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>

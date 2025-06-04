@@ -13,11 +13,10 @@ import Modal from "../Components/Modal";
 import { useNavigate } from "react-router-dom";
 
 const ManageFunerals = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const [funerals, setFunerals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [showViewModal, setShowViewModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [selectedFuneral, setSelectedFuneral] = useState(null);
@@ -76,9 +75,8 @@ const ManageFunerals = () => {
     });
   };
 
-  const handleView = (funeral) => {
-    setSelectedFuneral(funeral);
-    setShowViewModal(true);
+  const handleView = (a) => {
+    navigate("/view-funeral/" + a);
   };
 
   const handleEdit = (a) => {
@@ -132,11 +130,6 @@ const ManageFunerals = () => {
   // Close modal functions
   const closeDeleteModal = () => {
     setShowDeleteModal(false);
-    setSelectedFuneral(null);
-  };
-
-  const closeViewModal = () => {
-    setShowViewModal(false);
     setSelectedFuneral(null);
   };
 
@@ -224,7 +217,7 @@ const ManageFunerals = () => {
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                           <div className="flex space-x-3">
                             <button
-                              onClick={() => handleView(funeral)}
+                              onClick={() => handleView(funeral.id)}
                               className="text-blue-600 hover:text-blue-900 transition duration-200"
                               title="View"
                             >
@@ -255,90 +248,6 @@ const ManageFunerals = () => {
           )}
         </div>
       </div>
-
-      {/* View Modal */}
-      <Modal isOpen={showViewModal} onClose={closeViewModal}>
-        <div className="bg-white rounded-lg overflow-hidden max-w-2xl mx-auto">
-          <div className="p-6">
-            <div className="flex justify-between items-start mb-4">
-              <h3 className="text-lg font-medium text-gray-900">
-                Funeral Details
-              </h3>
-              <button
-                onClick={closeViewModal}
-                className="text-gray-400 hover:text-gray-500 focus:outline-none"
-              >
-                <FiX size={20} />
-              </button>
-            </div>
-
-            {selectedFuneral && (
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Deceased Name
-                  </label>
-                  <p className="mt-1 text-sm text-gray-900">
-                    {selectedFuneral.deceased_name}
-                  </p>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Date
-                  </label>
-                  <p className="mt-1 text-sm text-gray-900">
-                    {new Date(selectedFuneral.date).toLocaleDateString()}
-                  </p>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Location
-                  </label>
-                  <p className="mt-1 text-sm text-gray-900">
-                    {selectedFuneral.location}
-                  </p>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Status
-                  </label>
-                  <span
-                    className={`mt-1 px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                      selectedFuneral.status === "active"
-                        ? "bg-green-100 text-green-800"
-                        : selectedFuneral.status === "completed"
-                        ? "bg-blue-100 text-blue-800"
-                        : "bg-gray-100 text-gray-800"
-                    }`}
-                  >
-                    {selectedFuneral.status || "active"}
-                  </span>
-                </div>
-                {selectedFuneral.description && (
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">
-                      Description
-                    </label>
-                    <p className="mt-1 text-sm text-gray-900">
-                      {selectedFuneral.description}
-                    </p>
-                  </div>
-                )}
-                {selectedFuneral.target_amount && (
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">
-                      Target Amount
-                    </label>
-                    <p className="mt-1 text-sm text-gray-900">
-                      ${selectedFuneral.target_amount}
-                    </p>
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-        </div>
-      </Modal>
 
       {/* Delete Confirmation Modal */}
       <Modal isOpen={showDeleteModal} onClose={closeDeleteModal}>

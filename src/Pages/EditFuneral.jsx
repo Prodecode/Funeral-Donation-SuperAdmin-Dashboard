@@ -108,7 +108,7 @@ const EditFuneral = () => {
       );
 
       console.log("Funeral updated successfully", response.data);
-      navigate("/dashboard");
+      navigate("/manage-funerals");
     } catch (error) {
       console.error("Error updating funeral:", error.response?.data || error.message);
       setError("Failed to update funeral. Please try again.");
