@@ -5,6 +5,7 @@ import {
   FiUsers,
   FiLogOut
 } from 'react-icons/fi';
+import { LuLogs } from "react-icons/lu";
 import { MdAdminPanelSettings } from "react-icons/md";
 import { Link, useLocation } from 'react-router-dom';
 
@@ -44,6 +45,14 @@ const SideBar = () => {
             }`}
           >
             <MdAdminPanelSettings className="mr-2" /> Manage Administrators
+          </Link>
+          <Link
+            to="/logs"
+            className={`flex items-center w-full p-3 ${
+              isActive('/logs') ? 'bg-blue-600' : 'hover:bg-gray-700'
+            }`}
+          >
+            <LuLogs className="mr-2" /> Logs
           </Link>
           
           <button
