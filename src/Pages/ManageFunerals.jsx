@@ -156,7 +156,7 @@ const ManageFunerals = () => {
             <h2 className="text-2xl font-bold mb-6">Manage Funerals</h2>
             <button
               onClick={handleCreate}
-              className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded shadow transition duration-200 flex items-center gap-2"
+              className="bg-gray-600 hover:bg-gray-700 text-white font-medium py-2 px-4 rounded shadow transition duration-200 flex items-center gap-2"
             >
               <FiPlus size={16} />
               Create Funeral
