@@ -137,8 +137,7 @@ const ViewFuneralDetail = () => {
     try {
       const token = localStorage.getItem("FuneralToken");
       await axios.patch(
-        // api/v1/funerals/:funeral_id/donations/:id
-        `https://funeral-donation-backend-production.up.railway.app/api/v1/funerals/${selectedDonation.funeral_id}/donations/${selectedDonation.id}`,
+        `https://funeral-donation-backend-production.up.railway.app/api/v1/funerals/${funId}/donations/${selectedDonation.id}`,
         editForm,
         {
           headers: {

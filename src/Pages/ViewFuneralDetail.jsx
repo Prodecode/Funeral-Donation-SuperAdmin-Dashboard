@@ -162,7 +162,7 @@ const ViewFuneralDetail = () => {
                       <p className="text-sm font-medium text-gray-500">
                         Deceased Name
                       </p>
-                      <p className="text-lg font-semibold text-gray-900">
+                      <p className="text-sm font-semibold text-gray-900">
                         {funeral.deceased_name}
                       </p>
                     </div>
@@ -178,7 +178,7 @@ const ViewFuneralDetail = () => {
                       <p className="text-sm font-medium text-gray-500">
                         Funeral Date
                       </p>
-                      <p className="text-lg font-semibold text-gray-900">
+                      <p className="text-sm font-semibold text-gray-900">
                         {funeral.date}
                       </p>
                     </div>
@@ -194,7 +194,7 @@ const ViewFuneralDetail = () => {
                       <p className="text-sm font-medium text-gray-500">
                         Location
                       </p>
-                      <p className="text-lg font-semibold text-gray-900">
+                      <p className="text-sm font-semibold text-gray-900">
                         {funeral.location}
                       </p>
                     </div>
@@ -210,7 +210,7 @@ const ViewFuneralDetail = () => {
                       <p className="text-sm font-medium text-gray-500">
                         Total Donated
                       </p>
-                      <p className="text-lg font-semibold text-gray-900">
+                      <p className="text-sm font-semibold text-gray-900">
                         ${funeral.total_donated.toFixed(2)}
                       </p>
                     </div>
