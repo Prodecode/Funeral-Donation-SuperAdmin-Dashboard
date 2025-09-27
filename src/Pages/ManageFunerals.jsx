@@ -17,22 +17,9 @@ const ManageFunerals = () => {
   const [funerals, setFunerals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [showEditModal, setShowEditModal] = useState(false);
-  const [showCreateModal, setShowCreateModal] = useState(false);
   const [selectedFuneral, setSelectedFuneral] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  // Form states for create/edit
-  const [formData, setFormData] = useState({
-    deceased_name: "",
-    date: "",
-    location: "",
-    description: "",
-    target_amount: "",
-    status: "active",
-  });
-
+  
   useEffect(() => {
     fetchFunerals();
   }, []);
@@ -62,17 +49,6 @@ const ManageFunerals = () => {
     } finally {
       setLoading(false);
     }
-  };
-
-  const resetForm = () => {
-    setFormData({
-      deceased_name: "",
-      date: "",
-      location: "",
-      description: "",
-      target_amount: "",
-      status: "active",
-    });
   };
 
   const handleView = (a) => {
@@ -119,29 +95,10 @@ const ManageFunerals = () => {
     }
   };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
   // Close modal functions
   const closeDeleteModal = () => {
     setShowDeleteModal(false);
     setSelectedFuneral(null);
-  };
-
-  const closeEditModal = () => {
-    setShowEditModal(false);
-    setSelectedFuneral(null);
-    resetForm();
-  };
-
-  const closeCreateModal = () => {
-    setShowCreateModal(false);
-    resetForm();
   };
 
   return (
@@ -214,28 +171,28 @@ const ManageFunerals = () => {
                             {funeral.status || "active"}
                           </span>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 ">
                           <div className="flex space-x-3">
                             <button
                               onClick={() => handleView(funeral.id)}
                               className="text-blue-600 hover:text-blue-900 transition duration-200"
                               title="View"
                             >
-                              <FiEye size={18} />
+                              <FiEye size={18} className="cursor-pointer" />
                             </button>
                             <button
                               onClick={() => handleEdit(funeral.id)}
                               className="text-yellow-600 hover:text-yellow-900 transition duration-200"
                               title="Edit"
                             >
-                              <FiEdit size={18} />
+                              <FiEdit size={18} className="cursor-pointer" />
                             </button>
                             <button
                               onClick={() => handleDeleteClick(funeral)}
                               className="text-red-600 hover:text-red-900 transition duration-200"
                               title="Delete"
                             >
-                              <FiTrash2 size={18} />
+                              <FiTrash2 size={18} className="cursor-pointer" />
                             </button>
                           </div>
                         </td>

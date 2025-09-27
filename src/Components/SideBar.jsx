@@ -8,6 +8,7 @@ import {
 import { LuLogs } from "react-icons/lu";
 import { MdAdminPanelSettings } from "react-icons/md";
 import { Link, useLocation } from 'react-router-dom';
+import { GiFlyingFlag } from "react-icons/gi";
 
 const SideBar = () => {
   const location = useLocation();
@@ -37,6 +38,14 @@ const SideBar = () => {
             }`}
           >
             <FiUsers className="mr-2" /> Manage Funerals
+          </Link>
+          <Link
+            to="/manage-flagged"
+            className={`flex items-center w-full p-3 ${
+              isActive('/manage-flagged') ? 'bg-blue-600' : 'hover:bg-gray-700'
+            }`}
+          >
+            <GiFlyingFlag className="mr-2" /> Manage Flagged
           </Link>
           <Link
             to="/manage-admins"

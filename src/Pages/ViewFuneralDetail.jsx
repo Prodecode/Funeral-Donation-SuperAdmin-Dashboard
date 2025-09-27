@@ -109,11 +109,11 @@ const ViewFuneralDetail = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex max-h-screen bg-gray-50">
       <SideBar />
 
       <div className="flex-1 p-6 md:p-8">
-        <div className="max-w-7xl mx-auto">
+        <div className=" mx-auto ">
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-gray-900">
               Funeral Details
@@ -258,37 +258,37 @@ const ViewFuneralDetail = () => {
                         <tr>
                           <th
                             scope="col"
-                            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                           >
                             Donor
                           </th>
                           <th
                             scope="col"
-                            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                           >
                             Amount
                           </th>
                           <th
                             scope="col"
-                            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                           >
                             Date
                           </th>
                           <th
                             scope="col"
-                            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                           >
                             In Name Of
                           </th>
                           <th
                             scope="col"
-                            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                           >
                             Status
                           </th>
                           <th
                             scope="col"
-                            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                           >
                             Actions
                           </th>
@@ -297,12 +297,9 @@ const ViewFuneralDetail = () => {
                       <tbody className="bg-white divide-y divide-gray-200">
                         {donations.map((donation) => (
                           <tr key={donation.id} className="hover:bg-gray-50">
-                            <td className="px-6 py-4 whitespace-nowrap">
+                            <td className="px-2 py-4 whitespace-nowrap">
                               <div className="flex items-center">
-                                <div className="flex-shrink-0 h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center">
-                                  <FiUser className="h-5 w-5 text-gray-500" />
-                                </div>
-                                <div className="ml-4">
+                                <div className="">
                                   <div className="text-sm font-medium text-gray-900">
                                     {donation.donor_name || "Anonymous"}
                                   </div>
@@ -312,7 +309,7 @@ const ViewFuneralDetail = () => {
                                 </div>
                               </div>
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
+                            <td className="px-2 py-4 whitespace-nowrap">
                               <div className="text-sm font-medium text-gray-900">
                                 GHC {parseFloat(donation.amount || "0").toFixed(2)}
                               </div>
@@ -320,7 +317,7 @@ const ViewFuneralDetail = () => {
                                 {donation.mode_of_payment || "Not specified"}
                               </div>
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
+                            <td className="px-2 py-4 whitespace-nowrap">
                               <div className="text-sm text-gray-900">
                                 {donation.created_at
                                   ? new Date(
@@ -333,10 +330,10 @@ const ViewFuneralDetail = () => {
                                   : "Unknown"}
                               </div>
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <td className="px-2 py-4 whitespace-nowrap text-sm text-gray-500">
                               {donation.donating_in_name_of || "Not specified"}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
+                            <td className="px-2 py-4 whitespace-nowrap">
                               <span
                                 className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
                                   donation.flagged
@@ -347,7 +344,7 @@ const ViewFuneralDetail = () => {
                                 {donation.flagged ? "Flagged" : "Valid"}
                               </span>
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                            <td className="px-2 py-4 whitespace-nowrap text-right text-sm font-medium">
                               {donation.flagged && donation.flag_reason ? (
                                 <button
                                   onClick={() =>

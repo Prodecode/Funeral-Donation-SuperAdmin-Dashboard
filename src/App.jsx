@@ -9,6 +9,8 @@ import EditFuneral from "./Pages/EditFuneral";
 import CreateFuneralAdmin from "./Pages/CreateFuneralAdmin";
 import ViewFuneralDetail from "./Pages/ViewFuneralDetail";
 import Logs from "./Pages/Logs";
+import ManageResolutions from "./Pages/ManageResolutions";
+import EditFuneralDonations from "./Pages/EditFuneralDonations";
 
 function App() {
   return (
@@ -19,8 +21,10 @@ function App() {
         <Route path="/create-funeral" element={<CreateFuneral />} />
         <Route path="/create-funeral-admin" element={<CreateFuneralAdmin />} />
         <Route path="/manage-funerals" element={<ManageFunerals />} />
+        <Route path="/manage-flagged" element={<ManageResolutions />} />
         <Route path="/manage-admins" element={<ManageAdmins />} />
         <Route path="/logs" element={<Logs />} />
+        <Route path="/edit-donations/:id" element={<EditFuneralDonations />} />
         <Route path="/donations" element={<DonationsView />} />
         <Route path="/edit-funeral/:id" element={<EditFuneral />} />
         <Route path="/view-funeral/:id" element={<ViewFuneralDetail />} />
